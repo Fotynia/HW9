@@ -120,3 +120,40 @@
 //    console.log("Оцінка" + students[i] + "буде: " + students[students[i]]);
 // }
 // };
+function Group() {
+    this.students = [];
+    this.addStudent = function (student) {
+ this.students.push(student);
+    };
+
+   this.removeStudent = function (student) {
+    const index = this.students.indexOf(student);
+    if (index !== -1) {
+     this.students.splice(index, 1);
+    }
+    };
+
+    //рейтинг студентів за відвідуваністю
+    this.getAttendanceRanking = function () {
+    const sortedStudents = this.students.sort((a, b) => {
+ return b.getAverageAttendance() - a.getAverageAttendance();
+});
+        return sortedStudents.map(student => ({
+        name: student.firstName + ' ' + student.lastName,
+        averageAttendance: student.getAverageAttendance()
+        }));
+    };
+
+    //рейтинг студентів за успішністю
+    this.getGradeRanking = function () {
+        //середня успішність
+        const sortedStudents = this.students.sort((a, b) => {
+            return b.getAverageGrade() - a.getAverageGrade();
+        });
+
+        return sortedStudents.map(student => ({
+            name: student.firstName + ' ' + student.lastName,
+            averageGrade: student.getAverageGrade()
+        }));
+    };
+}
